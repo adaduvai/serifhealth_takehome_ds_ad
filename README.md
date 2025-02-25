@@ -2,15 +2,12 @@
 ## Summary of business approach
 To solve the problem, I found the payment rates for a given procedure at a given provider reported by both the payer and the provider, and then chose the one I found to be most appropriate bsaed on my understanding of payer-provider reimbursements.
 
-From reviewing the data, I picked the median of payer reimbursement rate as the best single reimbursement rate to use.
-
-I used the median to aggregate across the multiple values that I had for each code and plan type. This is because there are some high outliers that skew the mean upwards.
+From reviewing the data, I picked the median of payer reimbursement rate for the cases where payer reimbursement rate was between standard charge - min and standard charge - max (i.e., billing code 43239 and Lifesource or LocalPlus plans, and all plans for billing code 99283). Note that I used the median here because there are some high outliers that skew the means upwards. For the cases where payer reimbursement rate was not between standard charge - min and standard charge - max (i.e., billing code 43239 and ASA or Commercial plans), I took the mean of the standard charge - min and standard charge - max rates.
 
 I used payer reimbursement rate over the other reimbursement rates for the following reasons:
 * CMS reimbursement rate: CMS reimbursement rates tends to apply only for Medicare/Medicaid plans, and also tend to be lower than those that private/commericial insurance have.
   * My hypothesis is that these are present in the payer's data to act as a lower benchmark for what the payer might be willing to pay to the provider.
 * Standard charge - gross: I would hypothesize that this rate is likely only a starting point in negotiations with the payer, while the payer reimbursement rate likely reflects the actual amount that the payer pays to the provider.
-* Standard charge - max and standard charge min: I left these out to simplify the analysis, but a more robust study should consider these. Please see my further comments on this in the `Future Work` section below.
 * Provider rate of standard charge - discounted cash: This might only be applicable to a specific subset of scenarios where the patient pays cash to the hospital instead of the patient involving their insurance.
 
 ## Summary of technical approach
