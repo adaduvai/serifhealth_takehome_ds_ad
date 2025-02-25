@@ -2,7 +2,9 @@
 ## Summary of business approach
 To solve the problem, I found the payment rates for a given procedure at a given provider reported by both the payer and the provider, and then chose the one I found to be most appropriate bsaed on my understanding of payer-provider reimbursements.
 
-From reviewing the data, I picked the median of payer reimbursement rate for the cases where payer reimbursement rate was between standard charge - min and standard charge - max (i.e., billing code 43239 and Lifesource or LocalPlus plans, and all plans for billing code 99283). Note that I used the median here because there are some high outliers that skew the means upwards. For the cases where payer reimbursement rate was not between standard charge - min and standard charge - max (i.e., billing code 43239 and ASA or Commercial plans), I took the mean of the standard charge - min and standard charge - max rates.
+I picked the median of payer reimbursement rate for the cases where payer reimbursement rate was between standard charge - min and standard charge - max (i.e., billing code 43239 and Lifesource or LocalPlus plans, and all plans for billing code 99283). Note that I used the median here because there are some high outliers that skew the means upwards.
+
+For the cases where payer reimbursement rate was not between standard charge - min and standard charge - max (i.e., billing code 43239 and ASA or Commercial plans), I took the mean of the standard charge - min and standard charge - max rates.
 
 I used payer reimbursement rate over the other reimbursement rates for the following reasons:
 * CMS reimbursement rate: CMS reimbursement rates tends to apply only for Medicare/Medicaid plans, and also tend to be lower than those that private/commericial insurance have.
