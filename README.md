@@ -7,7 +7,8 @@ I used the median to aggregate across the multiple values that I had for each co
 I used payer reimbursement rate over the other reimbursement rates for the following reasons:
 * CMS reimbursement rate: CMS reimbursement rates tends to apply only for Medicare/Medicaid plans, and also tend to be lower than those that private/commericial insurance have.
   * My hypothesis is that these are present in the payer's data to act as a lower benchmark for what the payer might be willing to pay to the provider.
-* Provider reimbursement rates (standard charge - gross, standard charge - max, standard charge min): Per my understanding, the provider reimbursement rate is likely only a starting point in negotiations with the payer, while the payer reimbursement rate likely reflects the actual amount that the payer pays to the provider.
+* Standard charge - gross: I would hypothesize that this rate is likely only a starting point in negotiations with the payer, while the payer reimbursement rate likely reflects the actual amount that the payer pays to the provider.
+* Standard charge - max and standard charge min: I left these out to simplify the analysis, but a more robust study should consider these. Please see my further comments on this in the `Future Work` section below.
 * Provider rate of standard charge - discounted cash: This might only be applicable to a specific subset of scenarios where the patient pays cash to the hospital instead of the patient involving their insurance.
 
 ## Summary of technical approach
@@ -30,7 +31,7 @@ It would be challenging to scale this approach to more payers/plans, providers, 
 
 In addition, in the final payer/hospital joined data set, the values of payer are aligned with those of negotiation type, and the values of setting and description are aligned with those of plan name; however, this would almost certainly not be the case with real world data.
 
-Furthermore, there are cases in the data where the payer reimbursement rate is significantly less than the minimum standard charge. Even if minimum standard charge is only used as a starting point in negotiations, it seems unlikely that payer reimbursement rate should be significantly below the minimum. More complex logic could be implemented to take the minimum standard charge instead of payer reimbursement rate in this case.
+Furthermore, there are cases in the data where the payer reimbursement rate is significantly less than the minimum standard charge. It seems unlikely that payer reimbursement rate should be significantly below the minimum. More complex logic could be implemented to take the minimum standard charge instead of payer reimbursement rate in this case.
 
 Instead, a more robust approach combining descriptive statistics with business knowledge would work better. One could drill down to as granular a level as possible across the dimensions noted above: payer/plan, provider, procedure code, setting, and negotiation type; then, roll up each rate (e.g., payer reimbursement rate, CMS reimbursement rate, minimum standard charge, maximum standard charge) to e.g., a single number, and then apply e.g., a weighted average across each of the rates to calculate the final reimbursement rate where the rates could even be weighted differently based on the dimensions. (For example, if a plan were a Medicare plan, it would likely be appropriate to weight the CMS reimbursement rate from the payer data more highly.) Or, instead of applying a weighted average, one could implement an algorithm to pick a final rate (e.g., if median payer reimbursement rate < median of minimum standard provider reimbursement amount, take the median of minimum standard provider reimbursement amount).
 
