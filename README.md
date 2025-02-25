@@ -40,5 +40,3 @@ Assumptions: Anaconda Python is installed.
 4. Open a Jupyter Notebook server
 5. Open the notebook `Serif Health Take-Home Assessment.ipynb`
 6. In the top bar of the Juypyter Notebook, click Cell > Rull All
-
-# Any other relevant information that would help in understanding and evaluating your work
