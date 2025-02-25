@@ -1,6 +1,8 @@
 # Overview of approach
 ## Summary of business approach
-To solve the problem, I found the payment rates for a given procedure at a given provider reported by both the payer and the provider, and then chose the one I found to be most appropriate bsaed on my understanding of payer-provider reimbursements. From reviewing the data, I picked the median of payer reimbursement rate as the best single reimbursement rate to use.
+To solve the problem, I found the payment rates for a given procedure at a given provider reported by both the payer and the provider, and then chose the one I found to be most appropriate bsaed on my understanding of payer-provider reimbursements.
+
+From reviewing the data, I picked the median of payer reimbursement rate as the best single reimbursement rate to use.
 
 I used the median to aggregate across the multiple values that I had for each code and plan type. This is because there are some high outliers that skew the mean upwards.
 
@@ -31,9 +33,7 @@ It would be challenging to scale this approach to more payers/plans, providers, 
 
 In addition, in the final payer/hospital joined data set, the values of payer are aligned with those of negotiation type, and the values of setting and description are aligned with those of plan name; however, this would almost certainly not be the case with real world data.
 
-Furthermore, there are cases in the data where the payer reimbursement rate is significantly less than the minimum standard charge. It seems unlikely that payer reimbursement rate should be significantly below the minimum. More complex logic could be implemented to take the minimum standard charge instead of payer reimbursement rate in this case.
-
-Instead, a more robust approach combining descriptive statistics with business knowledge would work better. One could drill down to as granular a level as possible across the dimensions noted above: payer/plan, provider, procedure code, setting, and negotiation type; then, roll up each rate (e.g., payer reimbursement rate, CMS reimbursement rate, minimum standard charge, maximum standard charge) to e.g., a single number, and then apply e.g., a weighted average across each of the rates to calculate the final reimbursement rate where the rates could even be weighted differently based on the dimensions. (For example, if a plan were a Medicare plan, it would likely be appropriate to weight the CMS reimbursement rate from the payer data more highly.) Or, instead of applying a weighted average, one could implement an algorithm to pick a final rate (e.g., if median payer reimbursement rate < median of minimum standard provider reimbursement amount, take the median of minimum standard provider reimbursement amount).
+Instead, a more robust approach combining descriptive statistics with business knowledge would work better. One could drill down to as granular a level as possible across the dimensions noted above: payer/plan, provider, procedure code, setting, and negotiation type; then, roll up each rate (e.g., payer reimbursement rate, CMS reimbursement rate, minimum standard charge, maximum standard charge) to e.g., a single number, and then apply e.g., a weighted average across each of the rates to calculate the final reimbursement rate where the rates could even be weighted differently based on the dimensions. (For example, if a plan were a Medicare plan, it would likely be appropriate to weight the CMS reimbursement rate from the payer data more highly.) Or, instead of applying a weighted average, one could implement an algorithm to automatically pick a final rate (e.g., if median payer reimbursement rate < median of minimum standard provider reimbursement amount, take the mean of the median minimum standard provider reimbursement amount and maximum standard provider reimbursement amount).
 
 # Instructions on how to run code
 Assumptions: Anaconda Python is installed.
