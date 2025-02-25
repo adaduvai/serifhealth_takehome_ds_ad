@@ -4,13 +4,13 @@ To solve the problem, I found the payment rates for a given procedure at a given
 
 I picked the median of payer reimbursement rate for the cases where payer reimbursement rate was between standard charge - min and standard charge - max (i.e., billing code 43239 and Lifesource or LocalPlus plans, and all plans for billing code 99283). Note that I used the median here because there are some high outliers that skew the means upwards.
 
-For the cases where payer reimbursement rate was not between standard charge - min and standard charge - max (i.e., billing code 43239 and ASA or Commercial plans), I took the mean of the standard charge - min and standard charge - max rates.
-
-I used payer reimbursement rate over the other reimbursement rates for the following reasons:
+I used payer reimbursement rate over the other reimbursement rates here for the following reasons:
 * CMS reimbursement rate: CMS reimbursement rates tends to apply only for Medicare/Medicaid plans, and also tend to be lower than those that private/commericial insurance have.
   * My hypothesis is that these are present in the payer's data to act as a lower benchmark for what the payer might be willing to pay to the provider.
 * Standard charge - gross: I would hypothesize that this rate is likely only a starting point in negotiations with the payer, while the payer reimbursement rate likely reflects the actual amount that the payer pays to the provider.
 * Provider rate of standard charge - discounted cash: This might only be applicable to a specific subset of scenarios where the patient pays cash to the hospital instead of the patient involving their insurance.
+
+For the cases where payer reimbursement rate was not between standard charge - min and standard charge - max (i.e., billing code 43239 and ASA or Commercial plans), I took the mean of the standard charge - min and standard charge - max rates. I took the mean of the standard charges instead of the payer reimbursement rates in this case because it didn't make sense for a hospital to accept a reimbursement that is less than its standard reimbursement rate, and so I picked a reimbursement rate value that seemed to make sense.
 
 ## Summary of technical approach
 1. Read in the payer and hospital data, and perform data type conversions for columns that don't read in correctly
@@ -32,7 +32,7 @@ It would be challenging to scale this approach to more payers/plans, providers, 
 
 In addition, in the final payer/hospital joined data set, the values of payer are aligned with those of negotiation type, and the values of setting and description are aligned with those of plan name; however, this would almost certainly not be the case with real world data.
 
-Instead, a more robust approach combining descriptive statistics with business knowledge would work better. One could drill down to as granular a level as possible across the dimensions noted above: payer/plan, provider, procedure code, setting, and negotiation type; then, roll up each rate (e.g., payer reimbursement rate, CMS reimbursement rate, minimum standard charge, maximum standard charge) to e.g., a single number, and then apply e.g., a weighted average across each of the rates to calculate the final reimbursement rate where the rates could even be weighted differently based on the dimensions. (For example, if a plan were a Medicare plan, it would likely be appropriate to weight the CMS reimbursement rate from the payer data more highly.) Or, instead of applying a weighted average, one could implement an algorithm to automatically pick a final rate (e.g., if median payer reimbursement rate < median of minimum standard provider reimbursement amount, take the mean of the median minimum standard provider reimbursement amount and maximum standard provider reimbursement amount).
+Instead, a more robust approach combining descriptive statistics with business knowledge would work better. One could drill down to as granular a level as possible across the dimensions noted above: payer/plan, provider, procedure code, setting, and negotiation type; then, roll up each rate (e.g., payer reimbursement rate, CMS reimbursement rate, minimum standard charge, maximum standard charge) to a single number; and then apply e.g., a weighted average across the summary statistics for each rate to calculate a final reimbursement rate, where the rates could even be weighted differently based on the dimensions. (For example, if a plan were a Medicare plan, it would likely be appropriate to weight the CMS reimbursement rate from the payer data more highly.) Or, instead of applying a weighted average, one could implement an algorithm to automatically pick a final rate (e.g., if median payer reimbursement rate < median of minimum standard provider reimbursement amount, take the mean of the median minimum standard provider reimbursement amount and maximum standard provider reimbursement amount).
 
 # Instructions on how to run code
 Assumptions: Anaconda Python is installed.
