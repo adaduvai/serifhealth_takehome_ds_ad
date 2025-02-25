@@ -22,7 +22,7 @@ It would be challenging to scale this approach to more payers/plans, providers, 
 
 In addition, the setting (inpatient/outpatient/both) would likely also need to be considered, as this might affect a provider's reimbursement rate. Also, in the final payer/hospital joined data set, the values of payer are aligned with those of negotiation type; however, this is likely not present in the real world.
 
-Instead, a more robust approach combining descriptive statistics with business intelligence would work better. Assuming sufficient business knowledge of the available data, one could, e.g., compute a weighted average of the relevant reimbursement rates provided to calculate a final reimbursement rate. These could even be weighted differently based on the dimensions noted above -- payer/plan, provider, procedure code, setting, and negotiation type. For example, if a plan were a Medicare plan, it would likely be most appropriate to weight the CMS reimbursement rate from the payer data highly.
+Instead, a more robust approach combining descriptive statistics with business intelligence would work better. Assuming sufficient business knowledge of the available data, one could, e.g., compute a weighted average of the relevant reimbursement rates provided to calculate a final reimbursement rate. These could even be weighted differently based on the dimensions noted above -- payer/plan, provider, procedure code, setting, and negotiation type. For example, if a plan were a Medicare plan, it would likely be appropriate to weight the CMS reimbursement rate from the payer data more highly.
 
 # Instructions on how to run code
 Assumptions: Anaconda Python is installed.
