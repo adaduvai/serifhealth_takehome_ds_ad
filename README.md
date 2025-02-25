@@ -12,10 +12,16 @@ To solve the problem, I found the payment rates for a given procedure at a given
 7. To simplify the approach, pick the best rate from reviewing the distribution of reimbursement rates for a given plan and procedure code
 
 ## Assumptions
+* The date that the reimbursement value was last updated (network year-month in the payer data, 
+* In the charge methodology field of the hospital data, "Case Rate" means the same thing as "negotiated" in the negotiation type field.
+* The payer name of "UHC" in the hospital data means the same thing as the payer "unitedhealthcare" in the payer data.
 
 ## Future work
-It would be challenging to scale this approach to more payers/plans, providers, and procedure codes. Only 2 plans, 1 hospital, and 2 procedure codes are used here, and so it's reasonable in this case to use visual inspection of the distribution to select the best rate, but visual inspection would not work very well across more plans, more hospitals, and more procedure codes.
+It would be challenging to scale this approach to more payers/plans, providers, and procedure codes. Only 2 plans, 1 hospital, and 2 procedure codes are used here, and so it's reasonable in this case to use visual inspection of the distribution to select the best rate, but visual inspection would not work very well across more plans, more hospitals, and more procedure codes, as this would take too much time.
 
+In addition, the setting (inpatient/outpatient/both) would likely also need to be considered, as this might affect a provider's reimbursement rate. Also, this data set aligns payer with negotiation type, while this is likely not present in the real world.
+
+Instead, a more robust approach combining descriptive statistics with business intelligence would work better. Assuming sufficient business knowledge of the available data, one could, e.g., compute a weighted average of the relevant reimbursement rates provided to calculate a final reimbursement rate. These could even be weighted differently based on the dimensions noted above -- payer/plan, provider, procedure code, setting, and negotiation type. For example, if a plan were a Medicare plan, it would likely be most appropriate to weight the CMS reimbursement rate from the payer data highly.
 
 # Instructions on how to run code
 Assumptions: Anaconda Python is installed.
