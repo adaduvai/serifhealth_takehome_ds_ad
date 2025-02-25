@@ -8,7 +8,7 @@ I used payer reimbursement rate over the other reimbursement rates for the follo
 * CMS reimbursement rate: CMS reimbursement rates tends to apply only for Medicare/Medicaid plans, and also tend to be lower than those that private/commericial insurance have.
   * My hypothesis is that these are present in the payer's data to act as a lower benchmark for what the payer might be willing to pay to the provider.
 * Provider reimbursement rates (standard charge - gross, standard charge - max, standard charge min): Per my understanding, the provider reimbursement rate is likely only a starting point in negotiations with the payer, while the payer reimbursement rate likely reflects the actual amount that the payer pays to the provider.
-* Provider rate of standard charge - discounted cash: This is likely only applicable to a specific subset of scenarios.
+* Provider rate of standard charge - discounted cash: This might only be applicable to a specific subset of scenarios where the patient pays cash to the hospital instead of the patient involving their insurance.
 
 ## Summary of technical approach
 1. Read in the payer and hospital data, and perform data type conversions for columns that don't read in correctly
